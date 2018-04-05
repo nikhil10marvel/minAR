@@ -1,6 +1,7 @@
 package io.minAR.core;
 
 import com.esotericsoftware.minlog.Log;
+import io.minAR.MinAR;
 import io.minAR.util.Compressor;
 import io.minAR.util.Crypt;
 import io.minAR.util.Serializer;
@@ -22,13 +23,14 @@ public class Analyzer {
      * The apex of the file hierarchy, the directory whose contents are to be archived
      */
     transient File top_directory;
-    private boolean COMPRESSED, ENCRYPTED;
+    boolean COMPRESSED, ENCRYPTED;
     private static final String EXT = ".mar";
     /** Temporary file tree */
     NodeTree<File> filetree;
 
     /**
      * Generates an internal file tree, from which is then filled with actual data of the files
+     * Excludes empty directories
      * @param dir The directory whose contents are to be compressed
      * @param COMPRESSED whether the archive is compressed or not; xz compression applicable
      * @param ENCRYPTED whether the archive is encrypted or not; if so, then a random key is generated and will be notified.
@@ -49,13 +51,13 @@ public class Analyzer {
         this.ENCRYPTED = ENCRYPTED;
     }
 
-    // TODO Exclude empty directories from archives
+    // TODO Exclude empty folders.
     private Node<File>[] createNodes(File... sub_files){
         Node<File>[] ret = new Node[sub_files.length];
         int x = 0;
         for(File sub_file : sub_files){
             String internal = sub_file.getAbsolutePath().replace(top_directory.getAbsolutePath(), "");
-            if(sub_file.isDirectory()) ret[x] = Node.newNode(null,sub_file, internal, createNodes(sub_file.listFiles()));
+            if(sub_file.isDirectory() && sub_file.listFiles().length > 0) ret[x] = Node.newNode(null,sub_file, internal, createNodes(sub_file.listFiles()));
             else { ret[x] = Node.newNode(null,sub_file, internal, null); }
             x++;
         }
@@ -149,15 +151,10 @@ public class Analyzer {
         return new Analyzer(filetree, COMPRESSED, ENCRYPTED);
     }
 
-    // TODO Create helper classes for the creation and extraction of archives.
     public static void main(String[] args){
-        Analyzer analyzer = new Analyzer(new File(System.getProperty("user.dir")), true, true);
-        analyzer.convertToDataTree();
-        analyzer.OUTPUT_minAR("backup");
-//        Extractor extractor = new Extractor("./test_D", "./backup.mar");
-//        extractor.analyze(true, true, Crypt.getKeyFromFile("./backup_mar_secret"));
-//        extractor.analyze(true, true, Crypt.stringAsKey("rjTVmBCYFYA"));
-//        extractor.generate();
+        MinAR.toggleFlags(MinAR._default_enc_file);
+//        MinAR.outputArchive(".", "./backup");
+        MinAR.extractArchive("./backup.mar", "./test_D", "./backup_mar_secret");
     }
 
 }

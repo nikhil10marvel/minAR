@@ -7,7 +7,10 @@ import io.minAR.util.NeedsOptimisation;
 import io.minAR.util.Serializer;
 
 import javax.crypto.SecretKey;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -76,13 +79,15 @@ public class Extractor {
                 mkdir(node.path);
             } else {
                 try(FileOutputStream fos = new FileOutputStream(mkfile(node.path))) {
-                    if (analyzer.COMPRESSED) {
-                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(node.getData());
-                        fos.write(Compressor.decompress(byteArrayInputStream));
-                        byteArrayInputStream.close();
-                    } else {
-                        fos.write(node.data);
-                    }
+                    if(node.getData() != null){ // If for some reason the file contains no data
+                        if (analyzer.COMPRESSED) {
+                            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(node.getData());
+                            fos.write(Compressor.decompress(byteArrayInputStream));
+                            byteArrayInputStream.close();
+                        } else {
+                            fos.write(node.data);
+                        }
+                    } else System.out.println(node.path);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
