@@ -22,7 +22,7 @@ public class Analyzer {
      * The apex of the file hierarchy, the directory whose contents are to be archived
      */
     transient File top_directory;
-    boolean COMPRESSED, ENCRYPTED;
+    private boolean COMPRESSED, ENCRYPTED;
     private static final String EXT = ".mar";
     /** Temporary file tree */
     NodeTree<File> filetree;
@@ -40,7 +40,7 @@ public class Analyzer {
         if(!top_directory.isDirectory()) throw new RuntimeException(dir + " is not a directory");
         this.COMPRESSED = COMPRESSED;
         this.ENCRYPTED = ENCRYPTED;
-        filetree = new NodeTree<File>(Node.newNode(null,top_directory, "/", createNodes(top_directory.listFiles())));
+        filetree = new NodeTree<>(Node.newNode(null,top_directory, "/", createNodes(top_directory.listFiles())));
     }
 
     private Analyzer(NodeTree<File> nodeTree, boolean COMPRESSED, boolean ENCRYPTED){
@@ -49,6 +49,7 @@ public class Analyzer {
         this.ENCRYPTED = ENCRYPTED;
     }
 
+    // TODO Exclude empty directories from archives
     private Node<File>[] createNodes(File... sub_files){
         Node<File>[] ret = new Node[sub_files.length];
         int x = 0;
@@ -103,9 +104,9 @@ public class Analyzer {
                 Serializer.serialize(fileOutputStream, filetree);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.error("analyzer","File NOT FOUND!", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -142,24 +143,21 @@ public class Analyzer {
 
     /**
      * A reserved initializer, for internal purpose only.
-     * @param filetree
-     * @param COMPRESSED
-     * @param ENCRYPTED
-     * @return
      * @see Extractor
      */
     protected static Analyzer instance(NodeTree<File> filetree, boolean COMPRESSED, boolean ENCRYPTED){
         return new Analyzer(filetree, COMPRESSED, ENCRYPTED);
     }
 
+    // TODO Create helper classes for the creation and extraction of archives.
     public static void main(String[] args){
-//        Analyzer analyzer = new Analyzer(new File(System.getProperty("user.dir")), true, true);
-//        analyzer.convertToDataTree();
-//        analyzer.OUTPUT_minAR("backup");
-        Extractor extractor = new Extractor("./test_D", "./backup.mar");
+        Analyzer analyzer = new Analyzer(new File(System.getProperty("user.dir")), true, true);
+        analyzer.convertToDataTree();
+        analyzer.OUTPUT_minAR("backup");
+//        Extractor extractor = new Extractor("./test_D", "./backup.mar");
 //        extractor.analyze(true, true, Crypt.getKeyFromFile("./backup_mar_secret"));
-        extractor.analyze(true, true, Crypt.stringAsKey("rjTVmBCYFYA"));
-        extractor.generate();
+//        extractor.analyze(true, true, Crypt.stringAsKey("rjTVmBCYFYA"));
+//        extractor.generate();
     }
 
 }

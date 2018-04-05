@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Base64;
 
 /**
@@ -19,16 +18,14 @@ import java.util.Base64;
  * @since 0.0.1
  */
 public class Crypt {
-    static KeyGenerator keyGenerator;
+    private static KeyGenerator keyGenerator;
     private static Cipher cipher;
 
     static {
         try {
             keyGenerator = KeyGenerator.getInstance("DES");
             cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
     }
@@ -148,7 +145,6 @@ public class Crypt {
      */
     public static SecretKey stringAsKey(String key){
         byte[] encoded = Base64.getDecoder().decode(key);
-        System.out.println(Arrays.toString(encoded));
         return new SecretKeySpec(encoded, 0, encoded.length, "DES");
     }
 
