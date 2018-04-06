@@ -6,62 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="277f3644-864e-4fd5-bf15-6cb3c5e88c11" name="Default" comment="Updated JavaDoc">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/io/minAR/core/package-info.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/io/minAR/util/package-info.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/Test.java" />
+    <list default="true" id="277f3644-864e-4fd5-bf15-6cb3c5e88c11" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/doc/allclasses-frame.html" afterPath="$PROJECT_DIR$/doc/allclasses-frame.html" />
-      <change beforePath="$PROJECT_DIR$/doc/allclasses-noframe.html" afterPath="$PROJECT_DIR$/doc/allclasses-noframe.html" />
-      <change beforePath="$PROJECT_DIR$/doc/constant-values.html" afterPath="$PROJECT_DIR$/doc/constant-values.html" />
-      <change beforePath="$PROJECT_DIR$/doc/deprecated-list.html" afterPath="$PROJECT_DIR$/doc/deprecated-list.html" />
-      <change beforePath="$PROJECT_DIR$/doc/help-doc.html" afterPath="$PROJECT_DIR$/doc/help-doc.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-1.html" afterPath="$PROJECT_DIR$/doc/index-files/index-1.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-10.html" afterPath="$PROJECT_DIR$/doc/index-files/index-10.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-11.html" afterPath="$PROJECT_DIR$/doc/index-files/index-11.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-12.html" afterPath="$PROJECT_DIR$/doc/index-files/index-12.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-13.html" afterPath="$PROJECT_DIR$/doc/index-files/index-13.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-14.html" afterPath="$PROJECT_DIR$/doc/index-files/index-14.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-15.html" afterPath="$PROJECT_DIR$/doc/index-files/index-15.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-16.html" afterPath="$PROJECT_DIR$/doc/index-files/index-16.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-2.html" afterPath="$PROJECT_DIR$/doc/index-files/index-2.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-3.html" afterPath="$PROJECT_DIR$/doc/index-files/index-3.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-4.html" afterPath="$PROJECT_DIR$/doc/index-files/index-4.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-5.html" afterPath="$PROJECT_DIR$/doc/index-files/index-5.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-6.html" afterPath="$PROJECT_DIR$/doc/index-files/index-6.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-7.html" afterPath="$PROJECT_DIR$/doc/index-files/index-7.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-8.html" afterPath="$PROJECT_DIR$/doc/index-files/index-8.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-9.html" afterPath="$PROJECT_DIR$/doc/index-files/index-9.html" />
-      <change beforePath="$PROJECT_DIR$/doc/index.html" afterPath="$PROJECT_DIR$/doc/index.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/MinAR.FLAG.html" afterPath="$PROJECT_DIR$/doc/io/minAR/MinAR.FLAG.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/MinAR.html" afterPath="$PROJECT_DIR$/doc/io/minAR/MinAR.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/Analyzer.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/Analyzer.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/Extractor.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/Extractor.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/Node.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/Node.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/NodeTree.NodeListener.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/NodeTree.NodeListener.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/NodeTree.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/NodeTree.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/package-frame.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/package-frame.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/package-summary.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/package-summary.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/core/package-tree.html" afterPath="$PROJECT_DIR$/doc/io/minAR/core/package-tree.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/package-frame.html" afterPath="$PROJECT_DIR$/doc/io/minAR/package-frame.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/package-summary.html" afterPath="$PROJECT_DIR$/doc/io/minAR/package-summary.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/package-tree.html" afterPath="$PROJECT_DIR$/doc/io/minAR/package-tree.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/Compressor.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/Compressor.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/Crypt.ENC_OBJECT.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/Crypt.ENC_OBJECT.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/Crypt.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/Crypt.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/NeedsOptimisation.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/NeedsOptimisation.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/Serializer.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/Serializer.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/package-frame.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/package-frame.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/package-summary.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/package-summary.html" />
-      <change beforePath="$PROJECT_DIR$/doc/io/minAR/util/package-tree.html" afterPath="$PROJECT_DIR$/doc/io/minAR/util/package-tree.html" />
-      <change beforePath="$PROJECT_DIR$/doc/overview-frame.html" afterPath="$PROJECT_DIR$/doc/overview-frame.html" />
-      <change beforePath="$PROJECT_DIR$/doc/overview-summary.html" afterPath="$PROJECT_DIR$/doc/overview-summary.html" />
-      <change beforePath="$PROJECT_DIR$/doc/overview-tree.html" afterPath="$PROJECT_DIR$/doc/overview-tree.html" />
-      <change beforePath="$PROJECT_DIR$/doc/package-list" afterPath="$PROJECT_DIR$/doc/package-list" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/minAR_jar/minAR.jar" afterPath="$PROJECT_DIR$/out/artifacts/minAR_jar/minAR.jar" />
       <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change beforePath="$PROJECT_DIR$/src/io/minAR/core/NodeTree.java" afterPath="$PROJECT_DIR$/src/io/minAR/core/NodeTree.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -91,7 +39,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NodeTree.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NodeTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/io/minAR/core/NodeTree.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
@@ -115,14 +63,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="443">
-                <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+              <first_editor relative-caret-position="353">
+                <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
                 <folding>
-                  <marker date="1522995058998" expanded="true" signature="2805:3372" ph="{...}" />
+                  <element signature="e#2695#3387#0" expanded="false" />
+                  <marker date="1522995969121" expanded="true" signature="2809:3376" ph="{...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -247,11 +196,11 @@
         <option value="$PROJECT_DIR$/src/io/minAR/core/Extractor.java" />
         <option value="$PROJECT_DIR$/src/io/minAR/core/Analyzer.java" />
         <option value="$PROJECT_DIR$/src/test/Test.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/io/minAR/core/package-info.java" />
         <option value="$PROJECT_DIR$/src/io/minAR/util/package-info.java" />
         <option value="$PROJECT_DIR$/src/io/minAR/package-info.java" />
         <option value="$PROJECT_DIR$/src/io/minAR/core/NodeTree.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -529,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522918954911</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated JAR, JavaDoc includes package-info.java, updated readme to include basic usage section, and created class test.Test to facilitate the readme and commandline usage">
+      <created>1522995668179</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1522995668179</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -554,7 +510,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.50213444" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286638" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3286638" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.49786553" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -609,7 +565,8 @@
     <MESSAGE value="Created JAR, updated Crypt to remove some debug points, made some slight changes and optimisations" />
     <MESSAGE value="Updated JAR, Optimized slightly, Added helper class MinAR, contains useful `static` methods for creation of archives as well as extraction of archives, added FLAGS, used in MinAR class, used in place of boolean arguments such as `COMPRESSED` and `ENCRYPTED`, added default flag sets, which activate a number of flags, can be used through toggleFlags(...)" />
     <MESSAGE value="Updated JavaDoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated JavaDoc" />
+    <MESSAGE value="Updated JAR, JavaDoc includes package-info.java, updated readme to include basic usage section, and created class test.Test to facilitate the readme and commandline usage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated JAR, JavaDoc includes package-info.java, updated readme to include basic usage section, and created class test.Test to facilitate the readme and commandline usage" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -625,7 +582,8 @@
           <first_editor relative-caret-position="0">
             <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
             <folding>
-              <marker date="1522995058998" expanded="true" signature="2805:3372" ph="{...}" />
+              <element signature="e#2695#3387#0" expanded="false" />
+              <marker date="1522995969121" expanded="true" signature="2809:3376" ph="{...}" />
             </folding>
           </first_editor>
           <second_editor />
@@ -1084,27 +1042,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="443">
-            <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-            <folding>
-              <marker date="1522995058998" expanded="true" signature="2805:3372" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding>
-            <marker date="1522995058998" expanded="true" signature="2805:3372" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/io/minAR/core/package-info.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1134,6 +1071,29 @@
         <state relative-caret-position="18">
           <caret line="13" column="7" lean-forward="false" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="353">
+            <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+            <folding>
+              <element signature="e#2695#3387#0" expanded="false" />
+              <marker date="1522995969121" expanded="true" signature="2809:3376" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+          <folding>
+            <element signature="e#2695#3387#0" expanded="false" />
+            <marker date="1522995969121" expanded="true" signature="2809:3376" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -54,7 +54,7 @@ When certain other flags are activated, the end archive will be encrypted.
 <td>KEY_IS_FILE</td><td>Changes the thrid parameter, takes in a path to a file</td>
 </tr>
 <tr>
-<td>KEY_IS_STRING</td>Changes the third parameter, takes the string form of the key</td>
+<td>KEY_IS_STRING</td><td>Changes the third parameter, takes the string form of the key</td>
 </tr>
 </table>
 
