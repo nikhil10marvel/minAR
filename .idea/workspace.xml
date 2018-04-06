@@ -6,22 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="277f3644-864e-4fd5-bf15-6cb3c5e88c11" name="Default" comment="Updated">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/io/minAR/core/Hash.java" />
+    <list default="true" id="277f3644-864e-4fd5-bf15-6cb3c5e88c11" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/backup.mar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/backup_mar_secret.key" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/minAR_jar/minAR.jar" afterPath="$PROJECT_DIR$/out/artifacts/minAR_jar/minAR.jar" />
-      <change beforePath="$PROJECT_DIR$/out/production/minAR/io/minAR/core/Analyzer.class" afterPath="$PROJECT_DIR$/out/production/minAR/io/minAR/core/Analyzer.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/minAR/io/minAR/core/Extractor.class" afterPath="$PROJECT_DIR$/out/production/minAR/io/minAR/core/Extractor.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/minAR/io/minAR/util/Crypt$ENC_OBJECT.class" afterPath="$PROJECT_DIR$/out/production/minAR/io/minAR/util/Crypt$ENC_OBJECT.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/minAR/io/minAR/util/Crypt.class" afterPath="$PROJECT_DIR$/out/production/minAR/io/minAR/util/Crypt.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/minAR/io/minAR/util/Serializer.class" afterPath="$PROJECT_DIR$/out/production/minAR/io/minAR/util/Serializer.class" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change beforePath="$PROJECT_DIR$/src/io/minAR/MinAR.java" afterPath="$PROJECT_DIR$/src/io/minAR/MinAR.java" />
-      <change beforePath="$PROJECT_DIR$/src/io/minAR/core/Analyzer.java" afterPath="$PROJECT_DIR$/src/io/minAR/core/Analyzer.java" />
-      <change beforePath="$PROJECT_DIR$/src/io/minAR/core/Extractor.java" afterPath="$PROJECT_DIR$/src/io/minAR/core/Extractor.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/Test.java" afterPath="$PROJECT_DIR$/src/test/Test.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -538,7 +524,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522998716732</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added Hashing (to secure whether the archive has been damaged or not), Updated Analyzer and Extractor to support hashes. Hashing can be enabled by setting FLAG.HASH, which enabled in `_default_no_enc`, `_default_enc_file` and `_default_enc_str` option(FLAG[] which can be loaded with `toggleFlags(...)`).">
+      <created>1523027982936</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1523027982936</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -552,7 +545,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="543" y="14" width="1922" height="1061" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -565,7 +557,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286638" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.49786553" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.49786553" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2716115" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -620,7 +612,8 @@
     <MESSAGE value="Updated JavaDoc" />
     <MESSAGE value="Updated JAR, JavaDoc includes package-info.java, updated readme to include basic usage section, and created class test.Test to facilitate the readme and commandline usage" />
     <MESSAGE value="Updated Catch clauses to use minLog" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Catch clauses to use minLog" />
+    <MESSAGE value="Added Hashing (to secure whether the archive has been damaged or not), Updated Analyzer and Extractor to support hashes. Hashing can be enabled by setting FLAG.HASH, which enabled in `_default_no_enc`, `_default_enc_file` and `_default_enc_str` option(FLAG[] which can be loaded with `toggleFlags(...)`)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Hashing (to secure whether the archive has been damaged or not), Updated Analyzer and Extractor to support hashes. Hashing can be enabled by setting FLAG.HASH, which enabled in `_default_no_enc`, `_default_enc_file` and `_default_enc_str` option(FLAG[] which can be loaded with `toggleFlags(...)`)." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
