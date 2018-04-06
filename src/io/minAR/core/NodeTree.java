@@ -3,7 +3,7 @@ package io.minAR.core;
 import java.util.ArrayList;
 
 /**
- * A tree of {@link Node<T>}
+ * A tree of {@link Node}
  * @author nikhil
  * @param <T> the param for the node.
  * @since 0.0.1
@@ -51,7 +51,7 @@ public class NodeTree<T> {
 
     /**
      * Get the currently selected node.
-     * @apiNote Uses <code>current_level</code> and <code>current_sel</code> to identify the node
+     * Uses <code>current_level</code> and <code>current_sel</code> to identify the node
      * @return The node
      */
     public Node<T> get(){
