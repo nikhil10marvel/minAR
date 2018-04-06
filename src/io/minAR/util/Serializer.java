@@ -3,6 +3,7 @@ package io.minAR.util;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.minlog.Log;
 import io.minAR.core.Node;
 import io.minAR.core.NodeTree;
 
@@ -16,6 +17,7 @@ import java.io.*;
  */
 public class Serializer {
 
+    private static final String TAG = "serializer";
     private static Kryo kryo;
     static {
         kryo = new Kryo();
@@ -46,7 +48,7 @@ public class Serializer {
             serialize(baos,obj);
             ret = baos.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(TAG, "io_error", e);
         }
         return ret;
     }
@@ -78,7 +80,7 @@ public class Serializer {
         try {
             byteArrayInputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(TAG, "io_error", e);
         }
         return ret;
     }
@@ -95,7 +97,7 @@ public class Serializer {
         try(FileInputStream fileInputStream = new FileInputStream(file)){
             ret = deserialize(fileInputStream, clazz);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(TAG, "io_error", e);
         }
         return ret;
     }

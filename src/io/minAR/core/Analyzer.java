@@ -19,6 +19,7 @@ import java.util.Arrays;
  */
 public class Analyzer {
 
+    private static final String TAG = "analyzer_minAR";
     /**
      * The apex of the file hierarchy, the directory whose contents are to be archived
      */
@@ -106,9 +107,9 @@ public class Analyzer {
                 Serializer.serialize(fileOutputStream, filetree);
             }
         } catch (FileNotFoundException e) {
-            Log.error("analyzer","File NOT FOUND!", e);
+            Log.error(TAG,"File NOT FOUND!", e);
         } catch (IOException e) {
-            Log.error(e.getMessage(), e);
+            Log.error(TAG, e.getMessage(), e);
         }
     }
 
@@ -138,7 +139,7 @@ public class Analyzer {
         } catch (FileNotFoundException e) {
             System.err.println(file + " Could not be found! [404... :( ] " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(TAG, "io_error", e);
         }
         return ret;
     }

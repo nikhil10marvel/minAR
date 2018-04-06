@@ -66,7 +66,7 @@ public class Extractor {
             NodeTree<File> filetree = Serializer.deserialize(serialized_data, NodeTree.class);
             analyzer = Analyzer.instance(filetree, compressed, ENCRYPTED);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(TAG, "io_error", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class Extractor {
                         }
                     } else System.out.println(node.path);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.error(TAG, "io_error", e);
                 }
             }
         });
@@ -108,7 +108,7 @@ public class Extractor {
             if(file.exists()) file.delete();
             file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(TAG, "io_error", e);
         }
         return file;
     }
