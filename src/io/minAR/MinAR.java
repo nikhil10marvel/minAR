@@ -20,7 +20,8 @@ public class MinAR {
         COMPRESSED,
         ENCRYPTED,
         KEY_IS_STRING,
-        KEY_IS_FILE;
+        KEY_IS_FILE,
+        HASH
     }
 
     private static ArrayList<FLAG> activated_flags = new ArrayList<>();
@@ -28,11 +29,11 @@ public class MinAR {
     // Defaults
 
     /** The Default flag set, compression only */
-    public static final FLAG[] _default_no_enc  = {FLAG.COMPRESSED};
+    public static final FLAG[] _default_no_enc  = {FLAG.COMPRESSED, FLAG.HASH};
     /** The Default flag set, compression and encryption, key from file */
-    public static final FLAG[] _default_enc_file= {FLAG.COMPRESSED, FLAG.ENCRYPTED, FLAG.KEY_IS_FILE};
+    public static final FLAG[] _default_enc_file= {FLAG.COMPRESSED, FLAG.ENCRYPTED, FLAG.KEY_IS_FILE, FLAG.HASH};
     /** The Default flag set, compression and encryption, key from string */
-    public static final FLAG[] _default_enc_str = {FLAG.COMPRESSED, FLAG.ENCRYPTED, FLAG.KEY_IS_STRING};
+    public static final FLAG[] _default_enc_str = {FLAG.COMPRESSED, FLAG.ENCRYPTED,FLAG.KEY_IS_STRING,FLAG.HASH};
 
 
     /**
@@ -53,9 +54,7 @@ public class MinAR {
     public static void outputArchive(String directory, String archive_file){
         File dir = new File(directory);
         if(!dir.exists()) throw new RuntimeException(new FileNotFoundException(directory + " does not exist"));
-        boolean cmpr = isFlagged(FLAG.COMPRESSED);
-        boolean encr = isFlagged(FLAG.ENCRYPTED);
-        Analyzer analyzer = new Analyzer(dir, cmpr, encr);
+        Analyzer analyzer = new Analyzer(dir, isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), isFlagged(FLAG.HASH));
         analyzer.convertToDataTree();
         analyzer.OUTPUT_minAR(archive_file);
     }
@@ -105,7 +104,7 @@ public class MinAR {
             else if(isFlagged(FLAG.KEY_IS_STRING)) real_key = Crypt.stringAsKey(key);
             else throw new IllegalStateException("Invalid Flags... 'KEY_' FLAG missing!");
         }
-        extractor.analyze(isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), real_key);
+        extractor.analyze(isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), isFlagged(FLAG.HASH),real_key);
         extractor.generate();
     }
 }

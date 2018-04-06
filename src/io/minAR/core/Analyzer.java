@@ -20,11 +20,12 @@ import java.util.Arrays;
 public class Analyzer {
 
     private static final String TAG = "analyzer_minAR";
+
     /**
      * The apex of the file hierarchy, the directory whose contents are to be archived
      */
     transient File top_directory;
-    boolean COMPRESSED, ENCRYPTED;
+    final boolean COMPRESSED, ENCRYPTED, HASH;
     private static final String EXT = ".mar";
     /** Temporary file tree */
     NodeTree<File> filetree;
@@ -38,27 +39,28 @@ public class Analyzer {
      * @see Compressor
      * @see Crypt
      */
-    public Analyzer(File dir, boolean COMPRESSED, boolean ENCRYPTED){
+    public Analyzer(File dir, boolean COMPRESSED, boolean ENCRYPTED, boolean HASH){
         top_directory = dir;
         if(!top_directory.isDirectory()) throw new RuntimeException(dir + " is not a directory");
         this.COMPRESSED = COMPRESSED;
         this.ENCRYPTED = ENCRYPTED;
+        this.HASH = HASH;
         filetree = new NodeTree<>(Node.newNode(null,top_directory, "/", createNodes(top_directory.listFiles())));
     }
 
-    private Analyzer(NodeTree<File> nodeTree, boolean COMPRESSED, boolean ENCRYPTED){
+    private Analyzer(NodeTree<File> nodeTree, boolean COMPRESSED, boolean ENCRYPTED, boolean HASH){
         this.filetree = nodeTree;
         this.COMPRESSED = COMPRESSED;
         this.ENCRYPTED = ENCRYPTED;
+        this.HASH = HASH;
     }
 
-    // TODO Exclude empty folders.
     private Node<File>[] createNodes(File... sub_files){
         Node<File>[] ret = new Node[sub_files.length];
         int x = 0;
         for(File sub_file : sub_files){
             String internal = sub_file.getAbsolutePath().replace(top_directory.getAbsolutePath(), "");
-            if(sub_file.isDirectory() && sub_file.listFiles().length > 0) ret[x] = Node.newNode(null,sub_file, internal, createNodes(sub_file.listFiles()));
+            if(sub_file.isDirectory()) ret[x] = Node.newNode(null,sub_file, internal, createNodes(sub_file.listFiles()));
             else { ret[x] = Node.newNode(null,sub_file, internal, null); }
             x++;
         }
@@ -88,6 +90,34 @@ public class Analyzer {
         filetree.traverse();
     }
 
+    static byte[] merge(byte[] data1, byte[] data2){
+        byte[] ret = new byte[data1.length + data2.length];
+        System.arraycopy(data1, 0, ret, 0, data1.length);
+        System.arraycopy(data2, 0, ret, data1.length, data2.length);
+        return ret;
+    }
+
+     static class PairOfDisjointBytes {
+        final byte[] bytes1;
+        final byte[] bytes2;
+
+        private PairOfDisjointBytes(byte[] bytes1, byte[] bytes2){
+            this.bytes1 = bytes1;
+            this.bytes2 = bytes2;
+        }
+
+        protected static PairOfDisjointBytes instance(byte[] bytes1, byte[] bytes2){
+            return new PairOfDisjointBytes(bytes1, bytes2);
+        }
+    }
+
+    static PairOfDisjointBytes split(int length_of_data1, byte[] data){
+        if(length_of_data1 > data.length) throw new IllegalArgumentException("Length of constituent greater than sum... " + length_of_data1 + " > " + data.length);
+        byte[] c1 = Arrays.copyOfRange(data, 0, length_of_data1);
+        byte[] c2 = Arrays.copyOfRange(data, length_of_data1, data.length);
+        return PairOfDisjointBytes.instance(c1, c2);
+    }
+
     /**
      * Finally, output the archive onto the file.
      * The file tree is serialized into bytes, encrypted and written into the file
@@ -99,12 +129,25 @@ public class Analyzer {
         file += EXT;
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)){
             if(ENCRYPTED) {
-                Crypt.ENC_OBJECT enc_object = Crypt.encrypt(Serializer.serialize(filetree));
+                Crypt.ENC_OBJECT enc_object;
+                if(HASH) {
+                    byte[] filetree_bytes = Serializer.serialize(filetree);
+                    byte[] sha512 = Hash.hash(filetree_bytes);
+                    enc_object = Crypt.encrypt(merge(sha512, filetree_bytes));
+                } else {
+                    enc_object = Crypt.encrypt(Serializer.serialize(filetree));
+                }
                 fileOutputStream.write(enc_object.getRaw());
                 Files.write(Paths.get(file.replaceAll(EXT, "_mar") + "_secret.key"), enc_object.secretKey().getEncoded());
-                System.out.println("Your key: " + Crypt.keyAsString(enc_object.secretKey()) + Arrays.toString(enc_object.secretKey().getEncoded()));
+                System.out.println("Your key: " + Crypt.keyAsString(enc_object.secretKey()) + " " +Arrays.toString(enc_object.secretKey().getEncoded()));
             } else {
-                Serializer.serialize(fileOutputStream, filetree);
+                if(HASH){
+                    byte[] filetree_bytes = Serializer.serialize(filetree);
+                    byte[] sha512 = Hash.hash(filetree_bytes);
+                    fileOutputStream.write(merge(sha512, filetree_bytes));
+                }else {
+                    Serializer.serialize(fileOutputStream, filetree);
+                }
             }
         } catch (FileNotFoundException e) {
             Log.error(TAG,"File NOT FOUND!", e);
@@ -148,8 +191,8 @@ public class Analyzer {
      * A reserved initializer, for internal purpose only.
      * @see Extractor
      */
-    protected static Analyzer instance(NodeTree<File> filetree, boolean COMPRESSED, boolean ENCRYPTED){
-        return new Analyzer(filetree, COMPRESSED, ENCRYPTED);
+    protected static Analyzer instance(NodeTree<File> filetree, boolean COMPRESSED, boolean ENCRYPTED, boolean HASH){
+        return new Analyzer(filetree, COMPRESSED, ENCRYPTED, HASH);
     }
 
     public static void main(String[] args){

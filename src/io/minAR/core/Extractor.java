@@ -53,18 +53,31 @@ public class Extractor {
      * @see Analyzer
      */
     @NeedsOptimisation(where = "Checks for compression and encryption do not go hand in hand. Unnecessary input streams")
-    public void analyze(boolean compressed, boolean ENCRYPTED, SecretKey secretKey){
+    public void analyze(boolean compressed, boolean ENCRYPTED, boolean HASH, SecretKey secretKey){
         try {
             byte[] serialized_data = null;
-            if(ENCRYPTED){
-                byte[] encrypted = Files.readAllBytes(ar_file);
-                serialized_data = Crypt.decrypt(encrypted, secretKey);
+            byte[] apparent_data = Files.readAllBytes(ar_file);
+            if(HASH){
+                Analyzer.PairOfDisjointBytes bytes = Analyzer.split(64, apparent_data);
+                if(Hash.checkHash(bytes.bytes1, bytes.bytes2)){
+                    if(ENCRYPTED){
+                        serialized_data = Crypt.decrypt(bytes.bytes2, secretKey);
+                    } else {
+                        serialized_data = bytes.bytes2;
+                    }
+                } else {
+                    throw new MalformedDataException("The file" + ar_file.toString() + "is damaged; identical data absent.... [ERR: Hashes do not match]");
+                }
             } else {
-                serialized_data = Files.readAllBytes(ar_file);
+                if(ENCRYPTED){  // When apparent data is encrypted
+                    serialized_data = Crypt.decrypt(apparent_data, secretKey);
+                } else {    // When apparent data is unencrypted
+                    serialized_data = apparent_data;
+                }
             }
             // Build the file tree from the serialized data
             NodeTree<File> filetree = Serializer.deserialize(serialized_data, NodeTree.class);
-            analyzer = Analyzer.instance(filetree, compressed, ENCRYPTED);
+            analyzer = Analyzer.instance(filetree, compressed, ENCRYPTED, HASH);
         } catch (IOException e) {
             Log.error(TAG, "io_error", e);
         }
@@ -113,4 +126,15 @@ public class Extractor {
         return file;
     }
 
+    private class MalformedDataException extends RuntimeException {
+        String string;
+        public MalformedDataException(String s) {
+            string = s;
+        }
+
+        @Override
+        public String getMessage() {
+            return string;
+        }
+    }
 }
