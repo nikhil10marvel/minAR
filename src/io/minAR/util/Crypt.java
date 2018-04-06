@@ -1,5 +1,7 @@
 package io.minAR.util;
 
+import com.esotericsoftware.minlog.Log;
+
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class Crypt {
             keyGenerator = KeyGenerator.getInstance("DES");
             cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
     }
 
@@ -74,7 +76,7 @@ public class Crypt {
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             ret = cipher.doFinal(data);
         } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return ENC_OBJECT.getInstance(ret, secretKey);
     }
@@ -91,7 +93,7 @@ public class Crypt {
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
             ret = cipher.doFinal(encrypted);
         } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return ret;
     }
@@ -107,7 +109,7 @@ public class Crypt {
             cipher.init(Cipher.DECRYPT_MODE, encrypted.secretKey);
             ret = cipher.doFinal(encrypted.raw);
         } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return ret;
     }
@@ -123,7 +125,7 @@ public class Crypt {
             byte[] encoded = Files.readAllBytes(Paths.get(file + ".key"));
             secretKey = new SecretKeySpec(encoded, 0, encoded.length, "DES");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.error(e.getMessage(), e);
         }
         return secretKey;
     }
