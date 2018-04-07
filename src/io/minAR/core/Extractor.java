@@ -56,15 +56,12 @@ public class Extractor {
             byte[] serialized_data = null;
             byte[] apparent_data = Files.readAllBytes(ar_file);
             if(HASH){
-                Analyzer.PairOfDisjointBytes bytes = Analyzer.split(64, apparent_data);
+                byte[] dec_apparent_data = Crypt.decrypt(apparent_data, secretKey);
+                Analyzer.PairOfDisjointBytes bytes = Analyzer.split(64, dec_apparent_data);
                 if(Hash.checkHash(bytes.bytes1, bytes.bytes2)){
-                    if(ENCRYPTED){
-                        serialized_data = Crypt.decrypt(bytes.bytes2, secretKey);
-                    } else {
-                        serialized_data = bytes.bytes2;
-                    }
+                    serialized_data = bytes.bytes2;
                 } else {
-                    throw new MalformedDataException("The file" + ar_file.toString() + "is damaged; identical data absent.... [ERR: Hashes do not match]");
+                    throw new MalformedDataException(ar_file);
                 }
             } else {
                 if(ENCRYPTED){  // When apparent data is encrypted
@@ -125,14 +122,14 @@ public class Extractor {
     }
 
     private class MalformedDataException extends RuntimeException {
-        String string;
-        public MalformedDataException(String s) {
-            string = s;
+        String ar_file;
+        public MalformedDataException(Path path) {
+            ar_file = path.toString();
         }
 
         @Override
         public String getMessage() {
-            return string;
+            return "The file " + ar_file + " is damaged; identical data absent.... [ERR: Hashes do not match]";
         }
     }
 }
