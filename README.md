@@ -85,3 +85,8 @@ public class Test {
 ```
 Again, for simplicity sake, `_default_no_enc` is used, but `_default_enc_file` or `_default_enc_str` is recommended, and the code remains largely and greatly unchanged, as mentioned above.
 See [test.Test](src/test/Test.java) which implements encryption, using `_default_enc_file` 
+
+## Hashing
+In order to check whether the archive is damaged or not, an additional 64-bytes are appended before the actual archive.
+These 64 bytes are the hash of the archive, and thus help in confirming the archive's intactness. 
+Hashing is enabled by default in `_default_no_enc`, `_default_enc_file`, `_default_enc_string`. It can be turned off using `toggleFlag(...)`, but it is recommended not to do so.

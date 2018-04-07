@@ -3,7 +3,6 @@ package io.minAR.core;
 import com.esotericsoftware.minlog.Log;
 import io.minAR.util.Compressor;
 import io.minAR.util.Crypt;
-import io.minAR.util.NeedsOptimisation;
 import io.minAR.util.Serializer;
 
 import javax.crypto.SecretKey;
@@ -52,7 +51,6 @@ public class Extractor {
      * @param secretKey if encrypted, the {@link SecretKey} to decrypt
      * @see Analyzer
      */
-    @NeedsOptimisation(where = "Checks for compression and encryption do not go hand in hand. Unnecessary input streams")
     public void analyze(boolean compressed, boolean ENCRYPTED, boolean HASH, SecretKey secretKey){
         try {
             byte[] serialized_data = null;
