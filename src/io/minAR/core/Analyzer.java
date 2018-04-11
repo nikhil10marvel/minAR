@@ -4,6 +4,7 @@ import com.esotericsoftware.minlog.Log;
 import io.minAR.MinAR;
 import io.minAR.util.Compressor;
 import io.minAR.util.Crypt;
+import io.minAR.util.DataUnits;
 import io.minAR.util.Serializer;
 
 import java.io.*;
@@ -26,6 +27,8 @@ public class Analyzer {
      */
     transient File top_directory;
     final boolean COMPRESSED, ENCRYPTED, HASH;
+    boolean FILE_SPAN;  private int partsize;
+    private String format;
     private static final String EXT = ".mar";
     /** Temporary file tree */
     NodeTree<File> filetree;
@@ -121,6 +124,11 @@ public class Analyzer {
     /**
      * Finally, output the archive onto the file.
      * The file tree is serialized into bytes, encrypted and written into the file
+     *
+     * Note: As safe this method is, it should not be used in case file spanning is enabled.
+     *       This method does not support file spanning, however, if file spanning is disabled this is an efficient and optimized alternative.
+     *       Usually this switch is handled by the <code>finish(...)</code> method.
+     *
      * @param file the archive file
      * @see Serializer
      * @see Crypt
@@ -138,7 +146,7 @@ public class Analyzer {
                     enc_object = Crypt.encrypt(Serializer.serialize(filetree));
                 }
                 fileOutputStream.write(enc_object.getRaw());
-                Files.write(Paths.get(file.replaceAll(EXT, "_mar") + "_secret.key"), enc_object.secretKey().getEncoded());
+                writeToFile(file.replaceAll(EXT, "_mar") + "_secret.key", enc_object.secretKey().getEncoded());
                 System.out.println("Your key: " + Crypt.keyAsString(enc_object.secretKey()) + " " +Arrays.toString(enc_object.secretKey().getEncoded()));
             } else {
                 if(HASH){
@@ -156,6 +164,59 @@ public class Analyzer {
         }
     }
 
+    /**
+     * A helper method for outputting byte arrays to files.
+     * @param file
+     * @param data
+     */
+    public static void writeToFile(String file, byte[] data){
+        try {
+            Files.write(Paths.get(file), data);
+        } catch (IOException e) {
+            Log.error(MinAR.class.getCanonicalName(), e);
+        }
+    }
+
+    /**
+     * Finally output the archive into the file(s). Very similar to {@link Analyzer}.OUTPUT_minAR(...) method.
+     * The file tree is serialized into bytes, encrypted and written into the file
+     *
+     * Note: This method supports file spanning as is recommended against OUTPUT_minAR(...), but is not as optimized as the OUTPUT_minAR(...) method.
+     *       Thus, for optimal functioning, using the finish(...) method is recommended which switches to OUTPUT_minAR(...) in case file spanning is not enabled.
+     *
+     * @param file the name of the file(s) to output the archive into.
+     */
+    public void create_minAR(String file){
+        file += EXT;
+        byte[] serialized = null;
+        if(ENCRYPTED){
+            Crypt.ENC_OBJECT enc_object;
+            if(HASH){
+                byte[] file_tree_Bytes = Serializer.serialize(filetree);
+                byte[] sha512 = Hash.hash(file_tree_Bytes);
+                enc_object = Crypt.encrypt(merge(sha512, file_tree_Bytes));
+            } else {
+                enc_object = Crypt.encrypt(Serializer.serialize(filetree));
+            }
+            writeToFile(file.replaceAll(EXT, "_mar") + "_secret.key", enc_object.secretKey().getEncoded());
+            System.out.println("Your key: " + Crypt.keyAsString(enc_object.secretKey()) + " " +Arrays.toString(enc_object.secretKey().getEncoded()));
+            serialized = enc_object.getRaw();
+        } else {
+            if(HASH){
+                byte[] file_tree_bytes = Serializer.serialize(filetree);
+                byte[] sha512 = Hash.hash(file_tree_bytes);
+                serialized = merge(sha512, file_tree_bytes);
+            } else {
+                serialized = Serializer.serialize(filetree);
+            }
+        }
+        if(FILE_SPAN){
+            DataUnits.writeParts(partsize, serialized, format, file);
+        } else {
+            writeToFile(file, serialized);
+        }
+    }
+
     private void printSubNodes(ArrayList<Node<File>> subnodes){
         if(subnodes == null) return;
         subnodes.forEach((node) -> {
@@ -166,7 +227,20 @@ public class Analyzer {
         });
     }
 
-    private static byte[] FileToBytes(File file){
+    /**
+     * Finish the archiving process. Outputs the archive into file(s).
+     * See OUTPUT_minAR(...) and create_minAR(...)
+     * @param file The file name for the archive(s)
+     */
+    public void finish(String file){
+        if(FILE_SPAN){
+            create_minAR(file);
+        } else {
+            OUTPUT_minAR(file);
+        }
+    }
+
+    static byte[] FileToBytes(File file){
         byte[] ret = null;
         try {
             FileInputStream inputStream = new FileInputStream(file);
@@ -185,6 +259,20 @@ public class Analyzer {
             Log.error(TAG, "io_error", e);
         }
         return ret;
+    }
+
+    public boolean isFILE_SPAN() {
+        return FILE_SPAN;
+    }
+
+    public void enable_file_spanning(int partsize, String format) {
+        this.FILE_SPAN = true;
+        this.partsize = partsize;
+        this.format = format;
+    }
+
+    public void disable_file_spanning(){
+        this.FILE_SPAN = false;
     }
 
     /**

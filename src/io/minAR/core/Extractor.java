@@ -56,8 +56,13 @@ public class Extractor {
             byte[] serialized_data = null;
             byte[] apparent_data = Files.readAllBytes(ar_file);
             if(HASH){
-                byte[] dec_apparent_data = Crypt.decrypt(apparent_data, secretKey);
-                Analyzer.PairOfDisjointBytes bytes = Analyzer.split(64, dec_apparent_data);
+                Analyzer.PairOfDisjointBytes bytes;
+                if(ENCRYPTED){
+                    byte[] dec_apparent_data = Crypt.decrypt(apparent_data, secretKey);
+                    bytes = Analyzer.split(64, dec_apparent_data);
+                } else {
+                    bytes = Analyzer.split(64, apparent_data);
+                }
                 if(Hash.checkHash(bytes.bytes1, bytes.bytes2)){
                     serialized_data = bytes.bytes2;
                 } else {
@@ -76,6 +81,42 @@ public class Extractor {
         } catch (IOException e) {
             Log.error(TAG, "io_error", e);
         }
+    }
+
+    public void analyze(boolean COMPRESSED, boolean ENCRYPTED, boolean HASH, SecretKey secretKey, String format){
+        format = format.replaceAll("\\$\\{FILE_NAME}", ar_file.toString());
+        int x = 0; File file = new File(format.replaceAll("\\$\\{PART_NUM}", String.valueOf(x)));
+        byte[] apparent = new byte[0];
+        while(file.exists()){
+            apparent = Analyzer.merge(apparent, Analyzer.FileToBytes(file));
+            x++;
+            file = new File(format.replaceAll("\\$\\{PART_NUM}", String.valueOf(x)));
+        }
+        byte[] serialized;
+        if(HASH){
+            Analyzer.PairOfDisjointBytes bytes;
+            if(ENCRYPTED){
+                byte[] dec_apparent_data = Crypt.decrypt(apparent, secretKey);
+                bytes = Analyzer.split(64, dec_apparent_data);
+            } else {
+                bytes = Analyzer.split(64, apparent);
+            }
+            if(Hash.checkHash(bytes.bytes1, bytes.bytes2)){
+                serialized = bytes.bytes2;
+            } else {
+                throw new MalformedDataException(ar_file);
+            }
+        } else {
+            if(ENCRYPTED){
+                serialized = Crypt.decrypt(apparent, secretKey);
+            } else {
+                serialized = apparent;
+            }
+        }
+
+        // Build the file tree from the serialized data
+        NodeTree<File> filetree = Serializer.deserialize(serialized, NodeTree.class);
+        analyzer = Analyzer.instance(filetree, COMPRESSED, ENCRYPTED, HASH);
     }
 
     /**

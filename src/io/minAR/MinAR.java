@@ -21,7 +21,8 @@ public class MinAR {
         ENCRYPTED,
         KEY_IS_STRING,
         KEY_IS_FILE,
-        HASH
+        HASH,
+        FILE_SPAN
     }
 
     private static ArrayList<FLAG> activated_flags = new ArrayList<>();
@@ -35,6 +36,16 @@ public class MinAR {
     /** The Default flag set, compression and encryption, key from string */
     public static final FLAG[] _default_enc_str = {FLAG.COMPRESSED, FLAG.ENCRYPTED,FLAG.KEY_IS_STRING,FLAG.HASH};
 
+    /** The size of the files created if file spanning is enabled **/
+    static int partsize = 0;
+    /** The format for the file names */
+    static String format = null;
+
+    public static void enable_file_spanning(int partsize, String format){
+        MinAR.format = format;
+        MinAR.partsize = partsize;
+        toggleFlag(FLAG.FILE_SPAN);
+    }
 
     /**
      * Toggle the given flag i.e, deactivate the flag if activated, activate the flag if deactivated.
@@ -55,8 +66,12 @@ public class MinAR {
         File dir = new File(directory);
         if(!dir.exists()) throw new RuntimeException(new FileNotFoundException(directory + " does not exist"));
         Analyzer analyzer = new Analyzer(dir, isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), isFlagged(FLAG.HASH));
+        if(isFlagged(FLAG.FILE_SPAN)){
+            if(partsize <= 0 || format == null) throw new IllegalStateException("PARTSIZE and FORMAT not set!");
+            analyzer.enable_file_spanning(partsize, format);
+        }
         analyzer.convertToDataTree();
-        analyzer.OUTPUT_minAR(archive_file);
+        analyzer.finish(archive_file);
     }
 
     /**
@@ -104,7 +119,12 @@ public class MinAR {
             else if(isFlagged(FLAG.KEY_IS_STRING)) real_key = Crypt.stringAsKey(key);
             else throw new IllegalStateException("Invalid Flags... 'KEY_' FLAG missing!");
         }
-        extractor.analyze(isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), isFlagged(FLAG.HASH),real_key);
+        if(isFlagged(FLAG.FILE_SPAN)){
+            if(format == null) throw new IllegalStateException("Invalid FLAG - FILE_SPAN, has no format!");
+            extractor.analyze(isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), isFlagged(FLAG.HASH), real_key, format);
+        }else {
+            extractor.analyze(isFlagged(FLAG.COMPRESSED), isFlagged(FLAG.ENCRYPTED), isFlagged(FLAG.HASH),real_key);
+        }
         extractor.generate();
     }
 }
